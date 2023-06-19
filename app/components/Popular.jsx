@@ -44,7 +44,6 @@ export default class Popular extends React.Component {
         <LanguagesNav 
         selected={selectedLanguage}
         onUpdateLanguage={this.updateLanguage}/>
-        {JSON.stringify(this.state, null, 2)}
     </main>
     )
   };
