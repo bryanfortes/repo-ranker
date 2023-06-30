@@ -1,40 +1,35 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom/client'
 import "./index.css"
-import Popular from './components/popular'
+import Popular from './components/Popular'
 import Battle from './components/Battle'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Nav from './components/Nav'
 import Results from './components/Results'
 
-class App extends React.Component{
-    constructor(props) {
-      super(props)
-    
-      this.state = {
-         theme: "light"
-      }
-      this.toggleTheme = this.toggleTheme.bind(this)
+class App extends React.Component {
+    state = {
+        theme: "light"
     }
-    toggleTheme(){
-        this.setState(({theme}) => ({
-                theme: theme === 'light' ? 'dark' : 'light',
+    toggleTheme = () => {
+        this.setState(({ theme }) => ({
+            theme: theme === 'light' ? 'dark' : 'light',
         }))
     }
-    render () {
+    render() {
         return (
-        <Router>
-            <div className={this.state.theme}>
-                <div className='container'>
-                    <Nav theme ={this.state.theme} toggleTheme={this.toggleTheme}/>
-                    <Routes>
-                        <Route path='/' element={<Popular />} />
-                        <Route path='/battle' element={<Battle />} />
-                        <Route path='/results' element={<Results />} />
-                    </Routes>
+            <Router>
+                <div className={this.state.theme}>
+                    <div className='container'>
+                        <Nav theme={this.state.theme} toggleTheme={this.toggleTheme} />
+                        <Routes>
+                            <Route path='/' element={<Popular />} />
+                            <Route path='/battle' element={<Battle />} />
+                            <Route path='/results' element={<Results />} />
+                        </Routes>
+                    </div>
                 </div>
-            </div>
-        </Router>
+            </Router>
         )
     }
 }

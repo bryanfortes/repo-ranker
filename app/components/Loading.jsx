@@ -2,78 +2,70 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
 const styles = {
-    fontSize: "14px",
-    position: "absolute",
-    left: '0',
-    right: '0',
-    marginTop: '20px',
-    textAlign: "center",
+  fontSize: "14px",
+  position: "absolute",
+  left: '0',
+  right: '0',
+  marginTop: '20px',
+  textAlign: "center",
 };
 
-class Delayed extends React.Component{
-    constructor(props) {
-        super(props)
-      
-        this.state = {
-           show: false
-        }
-      }
-      componentDidMount() { 
-        this.timeout = window.setTimeout(()=>{
-            this.setState({show:true})
-        }, this.props.wait)
-    }
-    componentWillUnmount() {
-        window.clearTimeout(this.timeout)
-     }
-     render(){
-        return this.state.show === true ? this.props.children : null
-     }
+class Delayed extends React.Component {
+  state = {
+    show: false
+  }
+  componentDidMount() {
+    this.timeout = window.setTimeout(() => {
+      this.setState({ show: true })
+    }, this.props.wait)
+  }
+  componentWillUnmount() {
+    window.clearTimeout(this.timeout)
+  }
+  render() {
+    return this.state.show === true ? this.props.children : null
+  }
 }
 Delayed.defaultProps = {
-    wait:300
+  wait: 300
 }
 
 Delayed.propTypes = {
-    children: PropTypes.node.isRequired,
-    wait: PropTypes.number.isRequired
+  children: PropTypes.node.isRequired,
+  wait: PropTypes.number.isRequired
 }
 
 
 export default class Loading extends Component {
-  constructor(props) {
-    super(props)
-  
-    this.state = {
-       content: props.text
-    }
+  state = {
+    content: this.props.text
   }
-  componentDidMount(){
-    const {speed, text} = this.props
+  componentDidMount() {
+    const { speed, text } = this.props
 
-    this.interval = window.setInterval(()=>{
-        this.state.content == text + "..."
-        ? this.setState({content: text})
-        : this.setState(({content})=>({content: content + '.'}))
+    this.interval = window.setInterval(() => {
+      this.state.content == text + "..."
+        ? this.setState({ content: text })
+        : this.setState(({ content }) => ({ content: content + '.' }))
     }, speed)
   }
-  componentWillUnmount(){
+  componentWillUnmount() {
     window.clearInterval(this.interval)
   }
   render() {
     return (
-    <Delayed>
+      <Delayed>
         <p style={styles}>{this.state.content}</p>
-    </Delayed> 
+      </Delayed>
     )
   }
 }
 Loading.propTypes = {
-   text: PropTypes.string.isRequired,
-   speed: PropTypes.number.isRequired,
+  text: PropTypes.string.isRequired,
+  speed: PropTypes.number.isRequired,
 }
 
 Loading.defaultProps = {
-    text: "Loading",
-    speed: 300
+  text: "Loading",
+  speed: 300
 }
