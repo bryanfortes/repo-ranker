@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { battle } from '../utils/api'
+import Loading from './Loading';
 
 function Card({ profile }) {
   const {
@@ -94,8 +95,8 @@ export default class Results extends Component {
   render() {
     const {winner, loser,error, loading} = this.state
 
-    if (loading ===true){
-      return <i>LOADING</i>
+    if (loading === true){
+      return <Loading text ='Battling'/>
     }
     if (error) {
       return <p className='text-center error'>{error}</p>
