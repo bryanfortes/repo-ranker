@@ -3,13 +3,22 @@ import * as ReactDOM from 'react-dom/client'
 import "./index.css"
 import Popular from './components/popular'
 import Battle from './components/Battle'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+
 class App extends React.Component{
     render () {
-        return <div className='light'>
-            <div className='container'>
-                <Popular />
+        return (
+        <Router>
+            <div className='light'>
+                <div className='container'>
+                    <Routes>
+                        <Route path='/' element={<Popular />} />
+                        <Route path='/battle' element={<Battle />} />
+                    </Routes>
+                </div>
             </div>
-        </div>
+        </Router>
+        )
     }
 }
 
