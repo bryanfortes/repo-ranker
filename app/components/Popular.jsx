@@ -3,19 +3,19 @@ import PropTypes from 'prop-types'
 import { fetchPopularRepos } from '../utils/api';
 import Table from './Table'
 
-function LanguagesNav({selected, onUpdateLanguage}){
-    const languages = ['All', 'JavaScript', 'Ruby','Java', 'CSS', 'Python'];
-return (
-<select
-    onChange={(e) => onUpdateLanguage(e.target.value)}
-    selected={selected}
-    >
-    {languages.map((language) => (
-        <option key={language} value={language}>
-            {language}
-        </option>
-        ))}
-    </select>
+function LanguagesNav({ selected, onUpdateLanguage }) {
+    const languages = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python'];
+    return (
+        <select
+            onChange={(e) => onUpdateLanguage(e.target.value)}
+            selected={selected}
+        >
+            {languages.map((language) => (
+                <option key={language} value={language}>
+                    {language}
+                </option>
+            ))}
+        </select>
     )
 
 }
@@ -26,52 +26,47 @@ LanguagesNav.propTypes = {
 }
 
 export default class Popular extends React.Component {
-    constructor(props) {
-      super(props)
-    
-      this.state = {
-         selectedLanguage: "All",
-         repos: null,
-         errors: null
-      }
-      this.updateLanguage = this.updateLanguage.bind(this)
+    state = {
+        selectedLanguage: "All",
+        repos: null,
+        errors: null
     }
-    componentDidMount(){
+    componentDidMount() {
         this.updateLanguage(this.state.selectedLanguage)
     }
-    updateLanguage(selectedLanguage){
+    updateLanguage = (selectedLanguage) => {
         this.setState({
             selectedLanguage,
             error: null
         })
 
         fetchPopularRepos(selectedLanguage)
-        .then((repos)=> this.setState({
-            repos,
-            error : null,
-        })).catch((error) => {
-            console.warn("Error fetching repos: ", error)
+            .then((repos) => this.setState({
+                repos,
+                error: null,
+            })).catch((error) => {
+                console.warn("Error fetching repos: ", error)
 
-            this.setState({
-                error: `There was an error fetching the repositories`,
+                this.setState({
+                    error: `There was an error fetching the repositories`,
+                })
             })
-        })
     }
-  render() {
-    const { selectedLanguage, repos, error } = this.state
-    return (
-    <main className='stack main-stack animate-in'>
-        <div className='split'>
-        <h1>Popular</h1>
-        <LanguagesNav 
-        selected={selectedLanguage}
-        onUpdateLanguage={this.updateLanguage}/>
-        </div>
-        {error && <p className='text-center error'>{error}</p>}
+    render() {
+        const { selectedLanguage, repos, error } = this.state
+        return (
+            <main className='stack main-stack animate-in'>
+                <div className='split'>
+                    <h1>Popular</h1>
+                    <LanguagesNav
+                        selected={selectedLanguage}
+                        onUpdateLanguage={this.updateLanguage} />
+                </div>
+                {error && <p className='text-center error'>{error}</p>}
 
-        {repos && <Table repos={repos} />}
-    </main>
-    
-    )
-  };
+                {repos && <Table repos={repos} />}
+            </main>
+
+        )
+    };
 }

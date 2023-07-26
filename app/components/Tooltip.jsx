@@ -3,17 +3,17 @@ import React, { Children, Component } from 'react'
 import Hover from './Hover'
 
 const container = {
-    position: "relative",
-    display: "flex"
+  position: "relative",
+  display: "flex"
 }
 
 
-export default function Tooltip({children, element}) {
+export default function Tooltip({ children, element }) {
   return (
     <Hover>
       {(hovering) => {
-        return(<div 
-        style={container}>
+        return (<div
+          style={container}>
           {hovering == true && element}
           {children}
         </div>)
@@ -23,6 +23,6 @@ export default function Tooltip({children, element}) {
 }
 
 Tooltip.propTypes = {
-    children: PropTypes.node.isRequired,
-    element: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  element: PropTypes.node.isRequired
 }
