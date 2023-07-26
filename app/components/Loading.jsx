@@ -35,7 +35,7 @@ Delayed.defaultProps = {
 }
 
 Delayed.propTypes = {
-    children: PropTypes.array.isRequired,
+    children: PropTypes.node.isRequired,
     wait: PropTypes.number.isRequired
 }
 
